@@ -3,7 +3,6 @@ from Software_FJ.models.Servicio import Servicio
 class ReservarSala(Servicio):
     
     def __init__(self, nombre, descripcion, precioBase, disponible, capacidad, tipoSala, costoHora ):
-        self.__idServicio = f"RESSA-{super()._Servicio__idServicio }"
         super().__init__(nombre, descripcion, precioBase, disponible)
         self.capacidad = capacidad
         self.tipoSala = tipoSala

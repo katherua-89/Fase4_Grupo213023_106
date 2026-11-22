@@ -3,7 +3,6 @@ from Software_FJ.models.Servicio import Servicio
 class AlquilerEquipo(Servicio):
     
     def __init__(self, nombre, descripcion, precioBase, disponible, tipoEquipo, costoDia, cantidad):
-        self.__idServicio = f"ALQE-{super()._Servicio__idServicio }"
         super().__init__(nombre, descripcion, precioBase, disponible)
         self.tipoEquipo = tipoEquipo
         self.costoDia = costoDia

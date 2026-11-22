@@ -2,7 +2,6 @@ from Software_FJ.models.Servicio import Servicio
 class AsesoriaEspecializada(Servicio):
     
     def __init__(self, nombre, descripcion, precioBase, disponible, especialidad, costoHora, cantidadHoras):
-        self.__idServicio = f"ASESP-{super()._Servicio__idServicio }"
         super().__init__(nombre, descripcion, precioBase, disponible)
         self.especialidad = especialidad
         self.costoHora = costoHora

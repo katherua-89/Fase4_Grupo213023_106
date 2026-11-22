@@ -1,28 +1,37 @@
 from abc import ABC, abstractmethod
-from utils.GeneradorId import GeneradorId as gen
+
+from Software_FJ.utils.GeneradorId import GeneradorId
+
+
 class Servicio(ABC):
-    #Se establece una entidad padre, de la que se heredaran id y fecha de creacion
-    __idServicio:str
-    nombre:str
-    descripcion:str
-    precioBase:float
-    disponible:bool
-    
-    #Se construye un constructor para el id y la fecha
-   
-    def __init__(self, nombre, descripcion, precioBase, disponible):
-        self.__idServicio=f"SER-{gen.generarId()}"
-        self.nombre=nombre
-        self.descripcion=descripcion
-        self.precioBase=precioBase
-        self.disponible=disponible
+    def __init__(self, nombre, descripcion, precioBase, disponible=True):
+        self.__idServicio = f"SER-{GeneradorId.generarId()}"
+        self.nombre = nombre
+        self.descripcion = descripcion
+        self.precioBase = precioBase
+        self.disponible = disponible
+
+    @property
+    def idServicio(self):
+        return self.__idServicio
 
     @abstractmethod
-    def calcularCosto():
+    def calcularCosto(self, cantidad, descuento=0, impuesto=0):
         pass
+
     @abstractmethod
-    def describirServicio():
+    def describirServicio(self):
         pass
+
     @abstractmethod
-    def validarParametros():
+    def validarParametros(self):
         pass
+
+    def calcularCostoConAjustes(self, cantidad, descuento=0, impuesto=0):
+        """Variante común: aplica descuento porcentual y luego impuesto porcentual."""
+        if not isinstance(cantidad, (int, float)) or cantidad <= 0:
+            raise ValueError("La cantidad debe ser positiva")
+        if not 0 <= descuento <= 100 or not 0 <= impuesto <= 100:
+            raise ValueError("Descuento e impuesto deben estar entre 0 y 100")
+        base = self.calcularCosto(cantidad)
+        return round(base * (1 - descuento / 100) * (1 + impuesto / 100), 2)
